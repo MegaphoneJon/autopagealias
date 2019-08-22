@@ -1,8 +1,8 @@
 <?xml version="1.0"?>
 <extension key="autopagealias" type="module">
   <file>autopagealias</file>
-  <name>FIXME</name>
-  <description>FIXME</description>
+  <name>Automatic Page Aliases</name>
+  <description>When you create a contribution page or event, an alias ("permalink") is generated for you.</description>
   <license>AGPL-3.0</license>
   <maintainer>
     <author>Jon Goldberg</author>
@@ -16,11 +16,11 @@
   </urls>
   <releaseDate>2019-08-22</releaseDate>
   <version>1.0</version>
-  <develStage>alpha</develStage>
+  <develStage>beta</develStage>
   <compatibility>
     <ver>5.0</ver>
   </compatibility>
-  <comments>This is a new, undeveloped module</comments>
+  <comments>This is tested on Drupal 7, and should support Backdrop as well.  I can add support for other CMSes as needed.</comments>
   <civix>
     <namespace>CRM/Autopagealias</namespace>
   </civix>
