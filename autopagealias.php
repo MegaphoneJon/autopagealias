@@ -23,14 +23,7 @@ function autopagealias_civicrm_post($op, $objectName, $objectId, &$objectRef) {
     return;
   }
 
-  if ($objectName == 'ContributionPage') {
-    $originalPath = CRM_Utils_System::url('civicrm/contribute/transact', "reset=1&id=$objectId", FALSE, NULL, FALSE);
-  }
-  else {
-    $originalPath = CRM_Utils_System::url('civicrm/event/register', "reset=1&id=$objectId", FALSE, NULL, FALSE);
-  }
-  // Strip the leading slash.
-  $originalPath = substr($originalPath, 1);
+  $originalPath = CRM_Autopagealias_Utils::getOriginalPath($entity, $objectId);
   // Get the CMS.
   $cms = CRM_Core_Config::singleton()->userFramework;
 
@@ -43,6 +36,26 @@ function autopagealias_civicrm_post($op, $objectName, $objectId, &$objectRef) {
     $humanTitle = $pageDetails['values'][0]['title'];
     $slug = CRM_Autopagealias_Utils::slugify($humanTitle);
     CRM_Autopagealias_Utils::setAlias($originalPath, $slug, $cms);
+  }
+}
+/**
+ * Display the alias on the settings page if we know it.
+ * @param type $formName
+ * @param type $form
+ */
+function autopagealias_civicrm_buildForm($formName, $form) {
+  if (in_array($formName, ['CRM_Contribute_Form_ContributionPage_Settings', 'CRM_Event_Form_ManageEvent_EventInfo'])) {
+    $entity = $form->getDefaultEntity();
+    $originalPath = CRM_Autopagealias_Utils::getOriginalPath($entity, $form->getVar('_id'));
+    $cms = CRM_Core_Config::singleton()->userFramework;
+    $alias = CRM_Autopagealias_Utils::getAlias($originalPath, $cms);
+    if ($alias) {
+      $url = CRM_Utils_System::url($alias, NULL, TRUE);
+      CRM_Core_Region::instance('form-top')->add([
+        'markup' => "<span class=\"description\">Alias URL: <a href=\"$url\">$url</a></span>"
+      ]);
+    }
+
   }
 }
 

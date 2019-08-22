@@ -14,6 +14,25 @@
 class CRM_Autopagealias_Utils {
 
   /**
+   * Given an entity type and an ID, return the corresponding public-facing page.
+   * @param type $entity
+   * @param type $id
+   * @return type
+   */
+  public static function getOriginalPath($entity, $id) {
+    // "ContributionPage" is correct, but it's wrong in core.  Hopefully to be fixed one day.
+    if ($entity == 'ContributionPage' || $entity == 'Contribution') {
+      $originalPath = CRM_Utils_System::url('civicrm/contribute/transact', "reset=1&id=$id", FALSE, NULL, FALSE);
+    }
+    else {
+      $originalPath = CRM_Utils_System::url('civicrm/event/register', "reset=1&id=$id", FALSE, NULL, FALSE);
+    }
+    // Strip the leading slash.
+    $originalPath = substr($originalPath, 1);
+    return $originalPath;
+  }
+
+  /**
    * Given a path and a CMS type, check if an alias already exists.
    */
   public static function getAlias($originalPath, $cms) {
