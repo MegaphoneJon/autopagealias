@@ -23,7 +23,7 @@ function autopagealias_civicrm_post($op, $objectName, $objectId, &$objectRef) {
     return;
   }
 
-  $originalPath = CRM_Autopagealias_Utils::getOriginalPath($entity, $objectId);
+  $originalPath = CRM_Autopagealias_Utils::getOriginalPath($objectName, $objectId);
   // Get the CMS.
   $cms = CRM_Core_Config::singleton()->userFramework;
 
