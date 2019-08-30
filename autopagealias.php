@@ -51,9 +51,11 @@ function autopagealias_civicrm_buildForm($formName, $form) {
     $alias = CRM_Autopagealias_Utils::getAlias($originalPath, $cms);
     if ($alias) {
       $url = CRM_Utils_System::url($alias, NULL, TRUE);
+      $form->assign('autopagealias', $url);
       CRM_Core_Region::instance('form-top')->add([
-        'markup' => "<span class=\"description\">Alias URL: <a href=\"$url\">$url</a></span>"
+        'template' => 'autopagealias.tpl',
       ]);
+      CRM_Core_Resources::singleton()->addScriptFile('autopagealias', 'js/autopagealias.js');
     }
 
   }
