@@ -18,10 +18,18 @@
   <version>1.0</version>
   <develStage>beta</develStage>
   <compatibility>
-    <ver>5.0</ver>
+    <ver>5.27</ver>
   </compatibility>
   <comments>This is tested on Drupal 7, and should support Backdrop as well.  I can add support for other CMSes as needed.</comments>
   <civix>
     <namespace>CRM/Autopagealias</namespace>
+    <format>23.02.1</format>
   </civix>
+  <classloader>
+    <psr0 prefix="CRM_" path="."/>
+    <psr4 prefix="Civi\" path="Civi"/>
+  </classloader>
+  <mixins>
+    <mixin>smarty-v2@1.0.1</mixin>
+  </mixins>
 </extension>
